@@ -7,6 +7,17 @@
 
 import SwiftUI
 
+private struct SelectedLandmarkKey: FocusedValueKey {
+    typealias Value = Binding<Landmark>
+}
+
+extension FocusedValues {
+    var selectedLandmark: Binding<Landmark>? {
+        get { self[SelectedLandmarkKey.self] }
+        set { self[SelectedLandmarkKey.self] = newValue }
+    }
+}
+
 struct LandmarkCommands: Commands {
     @FocusedBinding(\.selectedLandmark) var selectedLandmark
     
@@ -19,16 +30,5 @@ struct LandmarkCommands: Commands {
             .keyboardShortcut("f", modifiers: [.shift, .option])
             .disabled(selectedLandmark == nil)
         }
-    }
-}
-
-private struct SelectedLandmarkKey: FocusedValueKey {
-    typealias Value = Binding<Landmark>
-}
-
-extension FocusedValues {
-    var selectedLandmark: Binding<Landmark>? {
-        get { self[SelectedLandmarkKey.self] }
-        set { self[SelectedLandmarkKey.self] = newValue }
     }
 }
